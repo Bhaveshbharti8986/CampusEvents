@@ -1,1 +1,121 @@
 @import "tailwindcss";
+
+/* =========================================
+   1. PREMIUM :ROOT VARIABLES (Tech/Event Theme)
+   ========================================= */
+:root {
+  /* --- BRAND COLORS (Vibrant & High Contrast) --- */
+  --brand-primary: #6b32f1de;      /* Electric Violet - Main Action Color */
+  --brand-hover: #6338e4;        /* Lighter Violet - For button hovers */
+  --brand-accent: #22d3ee;       /* Neon Cyan - For gradients and highlights */
+   --brand-secondary: #7a5cf6;     /* Lighter Violet - For button hovers */
+  /* --- BACKGROUNDS (Ultra Dark for Glassmorphism) --- */
+  --bg-light: #1f2937;           /* Dark Gray - Light background */
+  --bg-shallow: #0f172a;         /* Darker Gray - Shallow background */
+  --bg-deep: #030712;            /* Near Black/Obsidian - Deepest background */
+  --bg-surface: #111827;         /* Very Dark Gray - Surface elements */
+
+  /* --- TYPOGRAPHY --- */
+  --text-light: #d1d5db;         /* Light Gray - For light text */
+  --text-main: #ffffff;          /* Pure White - Maximum readability */
+  --text-muted: #9ca3af;         /* Soft Gray - Less important text */
+
+  /* --- PREMIUM GLASSMORPHISM TOKENS --- */
+  --glass-base: rgba(17, 24, 39, 0.4);      /* Darker, more translucent glass */
+  --glass-hover: rgba(139, 92, 246, 0.1);   /* Slight violet tint on hover */
+  --glass-border: rgba(255, 255, 255, 0.08); 
+  --glass-border-glow: rgba(34, 211, 238, 0.4); /* Cyan border glow on hover */
+
+  /* --- ENHANCED SHADOWS & GLOWS --- */
+  --shadow-glass-val: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  /* Intense violet and cyan mixed glow for interactive elements */
+  --shadow-glow-val: 0 10px 25px -5px rgba(139, 92, 246, 0.5), 0 8px 10px -6px rgba(34, 211, 238, 0.5);
+}
+
+/* =========================================
+   2. MAP TO TAILWIND (Allows using bg-brand-primary in React)
+   ========================================= */
+@theme {
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-accent: var(--brand-accent);
+  --color-bg-deep: var(--bg-deep);
+  --color-bg-surface: var(--bg-surface);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+}
+
+/* =========================================
+   3. BASE STYLES 
+   ========================================= */
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  /* Adds a very subtle global background pattern/gradient */
+  background-image: radial-gradient(circle at top right, rgba(139, 92, 246, 0.1), transparent 40%),
+                    radial-gradient(circle at bottom left, rgba(34, 211, 238, 0.05), transparent 40%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background-color: var(--brand-accent);
+  color: var(--bg-deep);
+}
+
+/* =========================================
+   4. CUSTOM COMPONENTS 
+   ========================================= */
+
+/* Static Glass Panel (Used for Modals, Sidebars) */
+.glass-panel {
+  background-color: var(--glass-base);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass-val);
+
+}
+
+.glass-panel-Rounded {
+  background-color: var(--glass-base);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass-val);
+    border-radius: 1.25rem;
+}
+/* Interactive Glass Panel (Used for Event Cards) */
+.glass-panel-interactive {
+  background-color: var(--glass-base);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass-val);
+  border-radius: 1.25rem;
+  
+  /* Smooth physics for all changes */
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* The Hover Physics */
+.glass-panel-interactive:hover {
+  background-color: var(--glass-hover);
+  border-color: var(--glass-border-glow);
+  transform: translateY(-6px) scale(1.01); /* Lifts up and slightly enlarges */
+  box-shadow: var(--shadow-glow-val);
+}
+
+/* Striking Text Gradient (For Hero Headings) */
+.text-gradient {
+  /* Angled gradient from Cyan through Violet */
+  background-image: linear-gradient(135deg, var(--brand-accent) 0%, var(--brand-primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Adds a subtle drop shadow to the text itself for readability */
+  filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.4));
+}

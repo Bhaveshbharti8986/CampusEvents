@@ -19,8 +19,27 @@ const userShcma = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-});
+  phoneNumber: {
+    type: String,
+    default: "",
+  },
+  collegeBranch: {
+    type: String,
+    required: [true, "College branch is required"], // Crucial for the student profile
+  },
+  avatarUrl: {
+    type: String,
+    default: "",
+  },
+  role: {
+    type: String,
+    enum: ["student", "admin"],
+    default: "student",
+  },
 
-const UserModel = mongoose.model("users", userShcma);
+},{
+  timestamps: true
+});
+const UserModel = mongoose.models.users || mongoose.model("users", userShcma); 
 
 export default UserModel;

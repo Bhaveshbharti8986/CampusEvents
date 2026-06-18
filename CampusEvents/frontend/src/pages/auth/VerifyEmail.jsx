@@ -17,10 +17,13 @@ export default function VerifyEmail() {
   const handleVerify = async () => {
     setLoading(true);
     try {
-      await axios.post("http://localhost:3301/api/auth/email/verify", {
-        email,
-        otp,
-      });
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/auth/email/verify`,
+        {
+          email,
+          otp,
+        },
+      );
       toast.success("Email verified successfully!");
       navigate("/auth/login");
     } catch (err) {
@@ -34,7 +37,9 @@ export default function VerifyEmail() {
   const handleResend = async () => {
     setLoading(true);
     try {
-      await axios.post("http://localhost:3301/api/auth/otp/resend", { email });
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/otp/resend`, {
+        email,
+      });
       toast.success("OTP resent!");
     } catch (err) {
       toast.error(err.response?.data?.message || "Resend failed");
@@ -50,14 +55,20 @@ export default function VerifyEmail() {
       <h2 className="text-gradient font-extrabold text-3xl">Verify Email</h2>
       <OtpInput setOtp={setOtp} />
       <GlassButton onClick={handleVerify} variant="success">
-          Verify OTP
-        </GlassButton>
+        Verify OTP
+      </GlassButton>
       <div className="mb-0 text-sm flex justify-between align-center">
         <Link to="/auth/login" className="text-brand-accent hover:underline">
           Login
         </Link>
-      <button onClick={handleResend} className="text-brand-accent hover:underline" > Resend OTP</button>
-      </div >
+        <button
+          onClick={handleResend}
+          className="text-brand-accent hover:underline"
+        >
+          {" "}
+          Resend OTP
+        </button>
+      </div>
     </div>
   );
 }

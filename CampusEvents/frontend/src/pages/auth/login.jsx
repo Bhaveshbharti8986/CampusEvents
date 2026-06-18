@@ -6,23 +6,28 @@ import GlassButton from "../../components/ui/GlassButton";
 import axios from "axios";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import { useAuth } from "../../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Loading, setLoading] = useState(false);
+   const {setIsLogin , setUser }=useAuth(); // access the setIsLogin function
+
   const navigate = useNavigate();
   const handeleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:3301/api/auth/login",
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
         { email, password },
         { withCredentials: true },
       );
       localStorage.setItem("accessToken", res.data.accessToken);
       toast.success("Login successful");
+      setIsLogin(true);
+      setUser(res.data.user); // immediately set user object
         navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.message || "Login failed");
@@ -31,6 +36,8 @@ function Login() {
       setLoading(false);
     }
   };
+
+  
   if (Loading) {
     return <LoadingSpinner text="Logging in..." />;
   }

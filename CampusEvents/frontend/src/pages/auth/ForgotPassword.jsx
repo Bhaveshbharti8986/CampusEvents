@@ -15,7 +15,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     setLoading(true); // start spinner
     try {
-      await axios.post("http://localhost:3301/api/auth/password/forgot", {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/password/forgot`, {
         email,
       });
       toast.success("Password reset OTP sent!");

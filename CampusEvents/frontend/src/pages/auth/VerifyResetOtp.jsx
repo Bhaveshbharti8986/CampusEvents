@@ -25,7 +25,7 @@ export default function VerifyResetOtp() {
     try {
    
       await axios.post(
-        "http://localhost:3301/api/auth/password/verify-otp",
+`${import.meta.env.VITE_API_URL}/api/auth/password/verify-otp`,
         { email, otp },
         { withCredentials: true },
       );

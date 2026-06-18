@@ -4,7 +4,7 @@ import API from "./Api";
 export const Login = (email, password) =>
   API.post("/auth/login", { email, password });
 
-export const register = (username, email, password) =>
+export const signup = (username, email, password) =>
   API.post("/auth/register", { username, email, password });
 
 export const verifyEmail = (email, otp) =>

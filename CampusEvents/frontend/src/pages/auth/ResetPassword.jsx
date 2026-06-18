@@ -17,7 +17,7 @@ export default function ResetPassword() {
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:3301/api/auth/password/reset",
+       ` ${import.meta.env.VITE_API_URL}/api/auth/password/reset`,
         { newPassword, confirmPassword },
         { withCredentials: true },
       );
@@ -33,9 +33,11 @@ export default function ResetPassword() {
   if (loading) return <LoadingSpinner text="Resetting password..." />;
 
   return (
-    <form onSubmit={handleReset}
-         className="w-full h-full  p-4 flex flex-col gap-3 justify-between">
-      <h2  className="text-gradient font-bold text-2xl">Reset Password</h2>
+    <form
+      onSubmit={handleReset}
+      className="w-full h-full  p-4 flex flex-col gap-3 justify-between"
+    >
+      <h2 className="text-gradient font-bold text-2xl">Reset Password</h2>
       <InputField
         type="password"
         value={newPassword}

@@ -17,7 +17,7 @@ function Signup() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("http://localhost:3301/api/auth/register", {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         username,
         email,
         password,

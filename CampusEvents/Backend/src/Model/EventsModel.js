@@ -6,7 +6,7 @@ const eventSchema = new mongoose.Schema(
     description: { type: String, required: true },
     category: { type: String, required: true },
     dateTime: { type: Date, required: true },
-    location: { type: String, required: true }, // Physical room or "Online"
+    location: { type: String, required: true }, 
     coverImageUrl: { type: String, default: "" },
     price: { type: Number, default: 0 },
     totalSeats: { type: Number, required: true },
@@ -16,8 +16,21 @@ const eventSchema = new mongoose.Schema(
       enum: ["upcoming", "ongoing", "completed"],
       default: "upcoming",
     },
+
+    createdBy: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "User", 
+      required: true 
+    }
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-export default mongoose.model("Event", eventSchema);
+//  Auto-set availableSeats before saving a NEW event
+eventSchema.pre('validate', async function() {
+  if (this.isNew && this.availableSeats === undefined) {
+    this.availableSeats = this.totalSeats;
+  }
+});
+const EventModel = mongoose.model("Event", eventSchema);
+export default EventModel;

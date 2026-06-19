@@ -25,7 +25,7 @@ const userShcma = new mongoose.Schema({
   },
   collegeBranch: {
     type: String,
-    required: [true, "College branch is required"], // Crucial for the student profile
+    default: "", 
   },
   avatarUrl: {
     type: String,

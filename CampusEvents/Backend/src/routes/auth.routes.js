@@ -1,7 +1,7 @@
 import { Router } from "express";
 import * as authController from '../controllers/auth.controller.js'
 const   authRouter=Router();
-
+import { verifyToken } from "../middleware/authMiddleware.js";
 // Register new user
 authRouter.post('/register', authController.register);
 
@@ -30,5 +30,6 @@ authRouter.post('/otp/resend', authController.resendOtp);
 authRouter.post('/password/forgot', authController.forgotPassword);
 authRouter.post('/password/verify-otp', authController.verifyResetOtp);
 authRouter.post('/password/reset', authController.resetPassword);
-
+// profile edit 
+authRouter.put("/profile", verifyToken, authController.updateProfile);
 export default authRouter

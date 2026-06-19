@@ -1,9 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Added so links actually navigate
 import { X, Ticket, Award, Settings, LogOut, UserRound } from "lucide-react";
 
-// Add 'user' to the destructured props here
 export default function Sidebar({ isOpen, onClose, onLogout, user }) {
-  // If the sidebar is trying to render before the user loads, don't crash
   if (!user) return null;
 
   return (
@@ -34,7 +33,6 @@ export default function Sidebar({ isOpen, onClose, onLogout, user }) {
           <div className="w-20 h-20 rounded-full bg-brand-primary flex items-center justify-center mb-4 shadow-glow-primary border-2 border-brand-accent/50">
             <UserRound size={40} className="text-white" />
           </div>
-          {/* Dynamically render the real username and email */}
           <h3 className="text-xl font-bold text-white capitalize">{user.username}</h3>
           <p className="text-text-muted text-sm">{user.email}</p>
           <span className="mt-2 px-3 py-1 bg-brand-accent/20 text-brand-accent text-xs font-bold uppercase rounded-full border border-brand-accent/30">
@@ -43,9 +41,11 @@ export default function Sidebar({ isOpen, onClose, onLogout, user }) {
         </div>
 
         <div className="flex flex-col flex-1 p-4 gap-2 mt-2">
-          <SidebarLink icon={<Ticket size={20} />} text="My Tickets" badge="2" />
-          <SidebarLink icon={<Award size={20} />} text="Certificate Vault" />
-          <SidebarLink icon={<Settings size={20} />} text="Profile Settings" />
+          {/* Passed routes and the onClose function to close the sidebar on click */}
+     
+          <SidebarLink to="/student/my-tickets" icon={<Ticket size={20} />} text="My Tickets" badge="2" onClick={onClose} />
+          <SidebarLink to="/student/certificates" icon={<Award size={20} />} text="Certificate Vault" onClick={onClose} />
+          <SidebarLink to="/student/profile" icon={<Settings size={20} />} text="Profile Settings" onClick={onClose} />
         </div>
 
         <div className="p-6 border-t border-white/5">
@@ -62,9 +62,14 @@ export default function Sidebar({ isOpen, onClose, onLogout, user }) {
   );
 }
 
-function SidebarLink({ icon, text, badge }) {
+// Converted from a <div> to a <Link> for actual routing capability
+function SidebarLink({ icon, text, badge, to, onClick }) {
   return (
-    <div className="glass-panel-interactive flex items-center justify-between p-3 rounded-xl hover:bg-glass-hover text-text-muted hover:text-white transition-all duration-300 cursor-pointer border border-transparent hover:border-glass-border">
+    <Link 
+      to={to}
+      onClick={onClick}
+      className="glass-panel-interactive flex items-center justify-between p-3 rounded-xl hover:bg-glass-hover text-text-muted hover:text-white transition-all duration-300 cursor-pointer border border-transparent hover:border-glass-border"
+    >
       <div className="flex items-center gap-3 font-medium">
         <span className="text-brand-accent">{icon}</span>
         {text}
@@ -74,6 +79,6 @@ function SidebarLink({ icon, text, badge }) {
           {badge}
         </span>
       )}
-    </div>
+    </Link>
   );
 }

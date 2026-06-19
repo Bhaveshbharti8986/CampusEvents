@@ -27,6 +27,8 @@ export async function register(req, resp) {
     username,
     email,
     password: hashPassword,
+    verified: false,
+    role:"student"
   });
 
   const otp = generateOtp();
@@ -125,6 +127,7 @@ export async function login(req, res) {
     user: {
       username: user.username,
       email: user.email,
+      role: user.role,
     },
     accessToken,
   });
@@ -159,6 +162,7 @@ export async function getMe(req, res) {
       user: {
         username: user.username,
         email: user.email,
+        role: user.role,
       },
     });
   } catch (error) {
@@ -296,6 +300,7 @@ export async function verifyEmail(req, res) {
       username: user.username,
       email: user.email,
       verified: user.verified,
+      role: user.role,
     },
   });
 }
@@ -473,3 +478,30 @@ res.clearCookie("resetToken");
     message: "Password reset successfully",
   });
 }
+// Add this new function to auth.controller.js
+export const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user.id || req.user._id; // from verifyToken middleware
+    const { username, phone, branch } = req.body;
+
+    // Find user and update data
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userId,
+      { username, phone, branch },
+      { new: true, runValidators: true }
+    ).select("-password"); // Never send password back!
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: updatedUser
+    });
+  } catch (error) {
+    console.error("Update profile error:", error);
+    res.status(500).json({ success: false, message: "Server error updating profile" });
+  }
+};

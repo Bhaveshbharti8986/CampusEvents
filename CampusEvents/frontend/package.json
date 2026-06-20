@@ -13,7 +13,7 @@
   "dev": "npx vite",
   "build": "npx vite build",
   "preview": "npx vite preview"
-}
+},
    "dependencies": {
     "@headlessui/react": "^2.2.10",
     "@tailwindcss/vite": "^4.3.1",

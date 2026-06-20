@@ -5,9 +5,11 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    port: 5173,                 // make sure this matches your dev server
-    host: true,                 // allow external access (important for tunnels)
-     // allow all Ngrok subdomains
-    // if you still want LocalTunnel, you can add '.loca.lt' here too
+    port: 5173,
+    host: true,
+    allowedHosts: [
+      'campusevents-1.onrender.com',
+      'localhost'                    // Keep this for your local development
+    ]
   }
 })

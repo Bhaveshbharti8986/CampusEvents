@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import InputField from "../../components/ui/InputField";
-import GlassButton from "../../components/ui/GlassButton";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import InputField from "../../components/UI/InputField";
+import GlassButton from "../../components/UI/GlassButton";
+import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState("");

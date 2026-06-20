@@ -327,7 +327,7 @@ export async function resendOtp(req, res) {
  try{
 
   await sendEmail(email, "OTP Verification", `Your OTP Code is ${otp}`, html);  
-
+return res.status(200).json({ message: "OTP resent successfully" });
  }  catch (error) {
 
   console.error("error in sending otp to email",error.message);

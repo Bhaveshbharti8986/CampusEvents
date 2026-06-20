@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
-import LoadingSpinner from "../components/ui/LoadingSpinner"; // Make sure this path is correct
+import LoadingSpinner from "../components/UI/LoadingSpinner"; // Make sure this path is correct
 
 function ProtectedRoute({ children, redirectPath = "/auth/login", allowedRoles }) {
   // We use an object to track both loading state and authorization status

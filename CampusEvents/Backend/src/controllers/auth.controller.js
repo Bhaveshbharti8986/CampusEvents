@@ -1,4 +1,4 @@
-import UserModel from "../Model/User.Model.js";
+import UserModel from "../Model/user.Model.js";
 import crypto from "crypto";
 import bcrypt from "bcrypt"; // add this
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes , Route } from 'react-router-dom'
 import Login from '../pages/auth/login'
-import Signup from '../pages/auth/signup'
+import Signup from '../pages/auth/Signup'
 import ForgotPassword from '../pages/auth/ForgotPassword'
 import ResetPassword from '../pages/auth/ResetPassword'
 import VerifyEmail from '../pages/auth/VerifyEmail'

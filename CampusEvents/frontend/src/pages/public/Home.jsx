@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Loader2 } from 'lucide-react';
+import { LoaderCircle } from 'lucide-react';
 
 const Home = () => {
   const [trendingEvents, setTrendingEvents] = useState([]);
@@ -45,7 +45,7 @@ const Home = () => {
         
         {isLoading ? (
           <div className="flex justify-center py-12">
-             <Loader2 className="animate-spin text-brand-accent" size={40} />
+             <LoaderCircle className="animate-spin text-brand-accent" size={40} />
           </div>
         ) : trendingEvents.length === 0 ? (
           <p className="text-text-muted">No upcoming events right now. Check back later!</p>

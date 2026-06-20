@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import InputField from "../../components/ui/InputField";
-import GlassButton from "../../components/ui/GlassButton";
+import InputField from "../../components/UI/InputField";
+import GlassButton from "../../components/UI/GlassButton";
 import axios from "axios";
 import { toast } from "react-toastify";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import LoadingSpinner from "../../components/UI/LoadingSpinner";
 import { useAuth } from "../../context/AuthContext";
 
 function Login() {

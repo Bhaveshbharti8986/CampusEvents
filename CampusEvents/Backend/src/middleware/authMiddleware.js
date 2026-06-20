@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import UserModel from "../Model/User.Model.js";
+import UserModel from "../Model/user.Model.js";
 import config from "../config/config.js";
  
 

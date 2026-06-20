@@ -9,11 +9,6 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "scripts": {
-  "dev": "npx vite",
-  "build": "npx vite build",
-  "preview": "npx vite preview"
-},
    "dependencies": {
     "@headlessui/react": "^2.2.10",
     "@tailwindcss/vite": "^4.3.1",
@@ -43,7 +38,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
     "postcss": "^8.5.15",
-    "tailwindcss": "^4.3.1",
+    "tailwindcss": "^4.3.1"
    
   }
 }

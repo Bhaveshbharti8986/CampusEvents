@@ -6,7 +6,7 @@ import {
   Award, CalendarDays, PlusCircle // Added new icons for specific roles
 } from "lucide-react";
 import NotificationBell from "../features/NotificationBell";
-import RegisterButton from "../ui/RegisterButton";
+import RegisterButton from "../UI/RegisterButton";
 import Sidebar from "./Sidebar";
 import { useAuth } from "../../context/AuthContext";
 

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import OtpInput from "../../components/ui/OtpInput";
-import GlassButton from "../../components/ui/GlassButton";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import OtpInput from "../../components/UI/OtpInput";
+import GlassButton from "../../components/UI/GlassButton";
+import LoadingSpinner from "../../components/UI/LoadingSpinner";
 import { Link } from "react-router-dom";
 export default function VerifyResetOtp() {
   const [otp, setOtp] = useState("");

@@ -41,7 +41,7 @@ export function AuthProvider({children}){
             fetchUser();
          
         }, []);
-     console.log("context","isLogin",isLogin,"user",user);
+   
     return (<Authcontext.Provider value={{isLogin, setIsLogin, user, setUser ,loading}}>
         {children}
         </Authcontext.Provider>);

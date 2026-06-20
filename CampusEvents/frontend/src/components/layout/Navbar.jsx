@@ -40,22 +40,19 @@ export default function Navbar() {
 
   return (
     <>
-      {/* =========================================
-          1. TOP NAVBAR (Desktop & Mobile Header)
-          ========================================= */}
+   
       <nav className="fixed top-0 z-40 w-full mb-10">
         <div className="glass-panel flex items-center justify-between px-4 lg:px-6 mt-4 py-3 mx-auto max-w-7xl rounded-full border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl">
           
-          {/* LEFT: Futuristic Logo */}
+     
           <div onClick={() => navigate("/")} className="flex items-center gap-2 group cursor-pointer shrink-0">
-            
            <h1 className="text-gradient font-bold text-3xl">CampusEvents</h1>
           </div>
 
-          {/* CENTER: Desktop Navigation (Hidden on Mobile) */}
+
           <div className="hidden md:flex items-center space-x-2 bg-black/20 p-1 rounded-full border border-white/5">
             
-            {/* Home is visible to everyone */}
+          {/* //public pages */}
             <Link
               to="/"
               className={`flex items-center gap-2 px-5 py-2 rounded-full transition-all duration-300 ${
@@ -70,7 +67,7 @@ export default function Navbar() {
 
             {/* ROLE-BASED RENDERING */}
             {user?.role === 'admin' ? (
-              // --- ADMIN LINKS ---
+           
               <>
                 <Link
                   to="/admin/dashboard"
@@ -101,7 +98,7 @@ export default function Navbar() {
                 </Link>
               </>
             ) : (
-              // --- STUDENT / PUBLIC LINKS ---
+            
               <>
                 <Link
                   to="/events"
@@ -139,7 +136,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* RIGHT: Auth & Profile */}
+   
           <div className="shrink-0">
             {isLogin && user ? (
               <div className="flex gap-4 md:gap-6 justify-end items-center">
@@ -149,7 +146,6 @@ export default function Navbar() {
                   className="rounded-full w-10 h-10 bg-gradient-to-r from-brand-primary to-brand-accent flex items-center justify-center text-white font-bold text-lg cursor-pointer border border-white/20 hover:scale-110 transition-transform shadow-[0_0_15px_rgba(139,92,246,0.6)] uppercase relative"
                 >
                   {user.username?.charAt(0)}
-                  {/* Futuristic scanning line effect inside avatar */}
                   <div className="absolute inset-0 bg-white/20 w-full h-[2px] animate-scan rounded-full blur-[1px]"></div>
                 </div>
               </div>
@@ -174,20 +170,20 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* =========================================
-          2. FUTURISTIC MOBILE BOTTOM DOCK (Hidden on Desktop)
-          ========================================= */}
+      {/* 
+      MOBILE NAVBAR (Hidden on Desktop)
+  */}
       <div className="md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-[350px] z-40 glass-panel rounded-full flex justify-around items-center py-2 px-4 border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_15px_rgba(139,92,246,0.3)] backdrop-blur-2xl">
         
-        {/* Home is visible to everyone */}
+       
         <Link to="/" className="relative p-3 flex flex-col items-center group">
           <div className={`absolute inset-0 rounded-full transition-all duration-300 ${isActive('/') ? 'bg-brand-accent/20 scale-100 blur-sm' : 'scale-0'}`}></div>
           <Home size={22} className={`relative z-10 transition-colors ${isActive('/') ? 'text-brand-accent' : 'text-text-muted group-hover:text-white'}`} />
         </Link>
 
-        {/* ROLE-BASED MOBILE RENDERING */}
+   
         {user?.role === 'admin' ? (
-          // --- ADMIN MOBILE LINKS ---
+          // --- admin mobile link ---
           <>
             <Link to="/admin/dashboard" className="relative p-3 flex flex-col items-center group">
               <div className={`absolute inset-0 rounded-full transition-all duration-300 ${isActive('/admin/dashboard') ? 'bg-brand-accent/20 scale-100 blur-sm' : 'scale-0'}`}></div>
@@ -203,7 +199,7 @@ export default function Navbar() {
             </Link>
           </>
         ) : (
-          // --- STUDENT / PUBLIC MOBILE LINKS ---
+          // --- student mobile link ---
           <>
             <Link to="/events" className="relative p-3 flex flex-col items-center group">
               <div className={`absolute inset-0 rounded-full transition-all duration-300 ${isActive('/events') ? 'bg-brand-accent/20 scale-100 blur-sm' : 'scale-0'}`}></div>

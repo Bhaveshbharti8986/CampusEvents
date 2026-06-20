@@ -1,28 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Added so links actually navigate
 import { X, Ticket, Award, Settings, LogOut, UserRound } from "lucide-react";
+import ProtectedRoute from "../../routes/ProtectedRoutes";
 
 export default function Sidebar({ isOpen, onClose, onLogout, user }) {
   if (!user) return null;
 
   return (
     <>
-      <div 
+      <div
         onClick={onClose}
         className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-300 ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       />
 
-      <div 
+      <div
         className={`fixed top-0 right-0 h-full w-80 bg-bg-surface/80 backdrop-blur-2xl border-l border-glass-border shadow-[-10px_0_30px_rgba(0,0,0,0.5)] z-[70] transform transition-transform duration-400 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex justify-between items-center p-6 border-b border-white/5">
           <h2 className="text-xl font-bold text-white">My Account</h2>
-          <button 
-            onClick={onClose} 
+          <button
+            onClick={onClose}
             className="text-text-muted hover:text-brand-accent hover:rotate-90 transition-all duration-300"
           >
             <X size={24} />
@@ -33,23 +34,48 @@ export default function Sidebar({ isOpen, onClose, onLogout, user }) {
           <div className="w-20 h-20 rounded-full bg-brand-primary flex items-center justify-center mb-4 shadow-glow-primary border-2 border-brand-accent/50">
             <UserRound size={40} className="text-white" />
           </div>
-          <h3 className="text-xl font-bold text-white capitalize">{user.username}</h3>
+          <h3 className="text-xl font-bold text-white capitalize">
+            {user.username}
+          </h3>
           <p className="text-text-muted text-sm">{user.email}</p>
+          <p className="text-text-muted text-sm">{user.phoneNumber}</p>
           <span className="mt-2 px-3 py-1 bg-brand-accent/20 text-brand-accent text-xs font-bold uppercase rounded-full border border-brand-accent/30">
-            Student
+            {user.role}
           </span>
         </div>
 
         <div className="flex flex-col flex-1 p-4 gap-2 mt-2">
-          {/* Passed routes and the onClose function to close the sidebar on click */}
-     
-          <SidebarLink to="/student/my-tickets" icon={<Ticket size={20} />} text="My Tickets" badge="2" onClick={onClose} />
-          <SidebarLink to="/student/certificates" icon={<Award size={20} />} text="Certificate Vault" onClick={onClose} />
-          <SidebarLink to="/student/profile" icon={<Settings size={20} />} text="Profile Settings" onClick={onClose} />
+         
+          {
+            user.role === "student" && (
+              <>
+                <SidebarLink
+                  to="/student/my-tickets"
+                  icon={<Ticket size={20} />}
+                  text="My Tickets"
+                  badge="2"
+                  onClick={onClose}
+                />
+                <SidebarLink
+                  to="/student/certificates"
+                  icon={<Award size={20} />}
+                  text="Certificate Vault"
+                  onClick={onClose}
+                />
+              </>
+            )
+          }
+        
+          <SidebarLink
+            to="/student/profile"
+            icon={<Settings size={20} />}
+            text="Profile Settings"
+            onClick={onClose}
+          />
         </div>
 
         <div className="p-6 border-t border-white/5">
-          <button 
+          <button
             onClick={onLogout}
             className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-brand-primary hover:bg-brand-hover text-white hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all duration-300 font-semibold"
           >
@@ -62,10 +88,10 @@ export default function Sidebar({ isOpen, onClose, onLogout, user }) {
   );
 }
 
-// Converted from a <div> to a <Link> for actual routing capability
+
 function SidebarLink({ icon, text, badge, to, onClick }) {
   return (
-    <Link 
+    <Link
       to={to}
       onClick={onClick}
       className="glass-panel-interactive flex items-center justify-between p-3 rounded-xl hover:bg-glass-hover text-text-muted hover:text-white transition-all duration-300 cursor-pointer border border-transparent hover:border-glass-border"

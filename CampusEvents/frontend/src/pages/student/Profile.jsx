@@ -6,34 +6,34 @@ import { useAuth } from '../../context/AuthContext';
 export default function Profile() {
   const { user, setUser } = useAuth();
   
-  // 1. Form State
+ 
   const [formData, setFormData] = useState({
     username: '',
-    phone: '',
+    phoneNumber: '',
     branch: ''
   });
   
-  // 2. UI States
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
 
-  // 3. Sync state with user data once it loads from context
+  //  Sync state with user data once it loads from context
   useEffect(() => {
     if (user) {
       setFormData({
         username: user.username || '',
-        phone: user.phone || '',
+        phoneNumber: user.phoneNumber|| '',
         branch: user.branch || ''
       });
     }
   }, [user]);
 
-  // 4. Handle Input Changes
+  //  Input Changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 5. Handle Form Submission
+  // Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -79,7 +79,7 @@ export default function Profile() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        {/* Left Column: Avatar & Quick Info */}
+        {/* left column: Avatar & Quick Info */}
         <div className="md:col-span-1">
           <div className="glass-panel-Rounded p-6 flex flex-col items-center text-center">
             <div className="w-32 h-32 rounded-full bg-brand-primary flex items-center justify-center mb-4 shadow-glow-primary border-4 border-bg-deep relative overflow-hidden">
@@ -88,9 +88,11 @@ export default function Profile() {
             </div>
             <h2 className="text-xl font-bold text-white capitalize">{user?.username || 'Student Name'}</h2>
             <p className="text-text-muted text-sm mb-4">{user?.email || 'student@college.edu'}</p>
+            <p className="text-text-muted text-sm mb-4"> {user?.phoneNumber || '123-456-7890'}</p>
             <span className="px-4 py-1 bg-brand-accent/20 text-brand-accent text-xs font-bold uppercase rounded-full border border-brand-accent/30">
               {user?.role === 'admin' ? 'System Admin' : 'Verified Student'}
             </span>
+
           </div>
         </div>
 
@@ -99,7 +101,7 @@ export default function Profile() {
           <div className="glass-panel-Rounded p-6 md:p-8">
             <h3 className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">Personal Information</h3>
             
-            {/* Status Message Display */}
+           
             {message.text && (
               <div className={`p-4 rounded-xl mb-6 flex items-center gap-3 border ${
                 message.type === 'success' 
@@ -156,9 +158,9 @@ export default function Profile() {
                       <Phone size={18} className="text-gray-500" />
                     </div>
                     <input 
-                      type="tel" 
-                      name="phone"
-                      value={formData.phone}
+                      type="text" 
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
                       onChange={handleChange}
                       placeholder="+91 9876543210"
                       className="w-full bg-bg-surface border border-gray-700 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors"

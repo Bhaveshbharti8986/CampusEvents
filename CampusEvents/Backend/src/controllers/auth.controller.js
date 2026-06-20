@@ -478,16 +478,16 @@ res.clearCookie("resetToken");
     message: "Password reset successfully",
   });
 }
-// Add this new function to auth.controller.js
+
 export const updateProfile = async (req, res) => {
   try {
-    const userId = req.user.id || req.user._id; // from verifyToken middleware
-    const { username, phone, branch } = req.body;
+    const userId = req.user.id || req.user._id; 
+    const { username, phoneNumber, branch } = req.body;
 
     // Find user and update data
     const updatedUser = await UserModel.findByIdAndUpdate(
       userId,
-      { username, phone, branch },
+      { username, phoneNumber, branch },
       { new: true, runValidators: true }
     ).select("-password"); // Never send password back!
 

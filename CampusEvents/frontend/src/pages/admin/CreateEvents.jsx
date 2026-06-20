@@ -34,7 +34,7 @@ export default function CreateEvent() {
     setError('');
 
     try {
-      // 1. Get the admin's token
+   
       const token = localStorage.getItem("accessToken");
       
       if (!token) {
@@ -43,7 +43,7 @@ export default function CreateEvent() {
         return;
       }
 
-      // 2. Send the actual data to the backend
+      
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/events/create`, 
         formData,
@@ -54,7 +54,7 @@ export default function CreateEvent() {
         }
       );
 
-      // 3. If successful, show the animation
+      
       if (response.data.success) {
         setShowSuccess(true);
         setTimeout(() => navigate('/admin/dashboard'), 2000);
@@ -62,14 +62,14 @@ export default function CreateEvent() {
       
     } catch (err) {
       console.error("Failed to create event:", err);
-      // Grab the error message from the backend, or show a default one
+     
       setError(err.response?.data?.message || "Failed to publish event. Are you an Admin?");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // ... (The rest of your component remains exactly the same)
+
 
   if (showSuccess) {
     return (
@@ -98,14 +98,14 @@ export default function CreateEvent() {
 
       <form onSubmit={handleSubmit} className="glass-panel-Rounded p-6 md:p-8 space-y-8">
         
-        {/* Show Error Banner if backend rejects it */}
+      
         {error && (
           <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg text-sm font-medium">
             {error}
           </div>
         )}
 
-        {/* Row 1: Title & Category */}
+    
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-text-muted mb-2">Event Title</label>

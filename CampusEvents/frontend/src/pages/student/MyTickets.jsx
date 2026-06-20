@@ -100,9 +100,9 @@ export default function MyTickets() {
                   </div>
                 </div>
 
-                {/* 2. Event Info Side (Middle) */}
+                {/* Event Info Side (Middle) */}
                 <div className="p-6 md:p-8 flex-grow border-b lg:border-b-0 lg:border-r border-dashed border-gray-500 relative bg-gradient-to-br from-transparent to-white/5">
-                  {/* CSS Cutouts for real ticket look */}
+              
                   <div className="hidden lg:block absolute -top-4 -right-4 w-8 h-8 bg-bg-deep rounded-full"></div>
                   <div className="hidden lg:block absolute -bottom-4 -right-4 w-8 h-8 bg-bg-deep rounded-full"></div>
                   
@@ -138,10 +138,10 @@ export default function MyTickets() {
                   </div>
                 </div>
 
-                {/* 3. QR Code Side (Right) */}
+                {/* QR Code */}
                 <div className="p-6 md:p-8 flex flex-col items-center justify-center min-w-[220px] bg-black/40 relative">
                   <div className="w-32 h-32 bg-white rounded-xl flex items-center justify-center mb-4 p-2 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                    {/* In a real app, you would use a library like 'qrcode.react' here */}
+                 
                     <QrCode size={110} className="text-black" />
                   </div>
                   <p className="text-text-muted text-xs font-mono uppercase tracking-widest mb-1">Pass ID</p>

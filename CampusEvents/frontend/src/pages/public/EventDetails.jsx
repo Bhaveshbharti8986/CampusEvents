@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
+import { LocationEdit } from 'lucide-react';
 
 const EventDetails = () => {
   const { eventId } = useParams(); // Using eventId to match your AppRoutes.jsx parameter
@@ -82,7 +83,7 @@ const EventDetails = () => {
              </span>
              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{event.title}</h1>
              <p className="text-gray-300 text-lg flex items-center gap-2">
-                📍 {event.location}
+              <LocationEdit className="w-4 h-4 text-cyan-50" /> {event.location}
              </p>
            </div>
         </div>
@@ -116,7 +117,7 @@ const EventDetails = () => {
           )}
         </div>
 
-        {/* Right Column: Sticky Registration Ticket */}
+      
         <div className="lg:col-span-1">
           <div className="glass-panel p-6 sticky top-24">
             <h3 className="text-xl font-bold mb-6 text-center">Registration Info</h3>
@@ -158,7 +159,7 @@ const EventDetails = () => {
               {event.availableSeats === 0 ? 'Registration Closed' : 'Register Now'}
             </button>
             
-            {/* CORRECTLY PLACED INSIDE THE RETURN STATEMENT */}
+          
             {!isLogin && (
               <p className="text-xs text-center text-gray-400 mt-4">
                 You will be redirected to login.

@@ -56,7 +56,7 @@ export default function EventRegistration() {
     try {
       const token = localStorage.getItem('accessToken');
       
-      // Post to our registration backend route
+      // Post to registration backend route
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/events/${eventId}/register`,
         formData, // Sending all the form data
@@ -133,7 +133,7 @@ export default function EventRegistration() {
           </div>
         </div>
 
-        {/* Academic Details Row (Optional fields) */}
+        {/* Academic Details Row*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-text-muted mb-2">Branch (Optional)</label>
@@ -161,7 +161,7 @@ export default function EventRegistration() {
           </div>
         </div>
 
-        {/* Team Registration Toggle */}
+        {/* Team Registration Checkbox */}
         <div className="border-t border-gray-800 pt-6 mt-6">
           <label className="flex items-center gap-3 cursor-pointer group">
             <input 

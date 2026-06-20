@@ -16,7 +16,7 @@ export default function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/events" element={<Eventcatalog />} />
       <Route path="/events/:eventId" element={<EventDetails />} />
-
+      
       <Route
         path="/admin/*"
         element={

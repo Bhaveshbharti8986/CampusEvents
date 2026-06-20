@@ -11,7 +11,7 @@ async function Dbconnection() {
     const db = client.db(dbname); // Select database
     const collection = db.collection(config.COLLECTION_NAME); // Select collection
 
-    console.log("✅ Connected to MongoDB");
+    console.log("Connected to MongoDB");
     const result = await collection.find().toArray();
     console.log(result);
     return collection; // Return collection for queries

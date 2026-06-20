@@ -15,14 +15,13 @@ export const getAllEvents = async (req, res) => {
       query.title = { $regex: search, $options: 'i' }; // Case-insensitive search
     }
 
-    // If user selected a specific category
     if (category && category !== 'all') {
       query.category = category;
     }
 
     let mongooseQuery = EventModel.find(query).sort({ dateTime: 1 }); 
 
-    // If we only want a few events (like a featured section)
+    // If we only want a few events
     if (limit) {
       mongooseQuery = mongooseQuery.limit(Number(limit));
     }
@@ -112,10 +111,10 @@ export const updateEvent = async (req, res) => {
       return res.status(404).json({ success: false, message: "Event not found." });
     }
 
-    // Update the event with whatever new data was sent in req.body
+    // Update the event new data
     event = await EventModel.findByIdAndUpdate(req.params.id, req.body, {
-      new: true, // Returns the updated document
-      runValidators: true // Ensures Mongoose schema validators are run
+      new: true, 
+      runValidators: true 
     });
 
     res.status(200).json({ 
@@ -132,6 +131,7 @@ export const updateEvent = async (req, res) => {
 // Delete an event
 export const deleteEvent = async (req, res) => {
   try {
+
     const event = await EventModel.findById(req.params.id);
 
     if (!event) {
@@ -159,7 +159,7 @@ export const registerForEvent = async (req, res) => {
     const eventId = req.params.id;
     const userId = req.user._id;
     
-    // 1. Extract ALL the new data coming from the React form
+    //  Extract ALL the new data 
     const { 
       mobile, 
       branch, 
@@ -168,13 +168,13 @@ export const registerForEvent = async (req, res) => {
       teamName 
     } = req.body;
 
-    // 2. Check if the user is already registered for this specific event
+    //  Check if the user is already registered 
     const existingRegistration = await RegistrationModel.findOne({ user: userId, event: eventId });
     if (existingRegistration) {
       return res.status(400).json({ success: false, message: "You are already registered for this event." });
     }
 
-    // 3. Atomically find the event and decrease available seats ONLY IF seats are > 0
+    //  Atomically find the event and decrease available seat
     const updatedEvent = await EventModel.findOneAndUpdate(
       { _id: eventId, availableSeats: { $gt: 0 } },
       { $inc: { availableSeats: -1 } },
@@ -186,11 +186,11 @@ export const registerForEvent = async (req, res) => {
       return res.status(400).json({ success: false, message: "Sorry, this event is completely full." });
     }
 
-    // 4. Generate a random 6-character Registration ID (e.g., REG-A7B2X9)
+    //  Generate a random 6-character Registration ID (e.g., REG-A7B2X9)
     const randomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
     const uniqueRegId = `REG-${randomCode}`;
 
-    // 5. Create the Registration record with the new fields included
+    //  Create the Registration record with the new fields included
     const newRegistration = await RegistrationModel.create({
       user: userId,
       event: eventId,
@@ -199,7 +199,7 @@ export const registerForEvent = async (req, res) => {
       branch,
       year,
       isTeamRegistration,
-      // Only save the team name if the checkbox was actually checked
+    
       teamName: isTeamRegistration ? teamName : "" 
     });
 
@@ -218,27 +218,30 @@ export const registerForEvent = async (req, res) => {
 
 
 
-export const getDashboardStats = async (req, res) => {
+export const getAdminDashboard = async (req, res) => {
   try {
-    // 1. Get total counts
+    // Simple Count
     const activeEventsCount = await EventModel.countDocuments({ status: { $in: ['upcoming', 'ongoing'] } });
     const totalStudentsCount = await UserModel.countDocuments({ role: 'student' });
     const totalRegistrationsCount = await RegistrationModel.countDocuments();
 
-    // 2. Explicit Populate (Bypasses Mongoose reference lookup errors)
+    //  Explicit Populate 
     const recentRegistrations = await RegistrationModel.find()
       .populate({ 
         path: 'user', 
         select: 'username email', 
-        model: UserModel // Explicitly passing the model!
+        model: UserModel
       })
       .populate({ 
         path: 'event', 
         select: 'title', 
-        model: EventModel // Explicitly passing the model!
-      })
+        model: EventModel 
+      }
+      )
+       
+      .select('branch year teamName mobile status ') 
       .sort({ createdAt: -1 })
-      .limit(5);
+      .limit(10);
 
     res.status(200).json({
       success: true,
@@ -257,7 +260,7 @@ export const getDashboardStats = async (req, res) => {
 
 
 
-// Add this inside event.controller.js
+
 export const getStudentDashboard = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -298,3 +301,5 @@ export const getStudentDashboard = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to fetch dashboard data." });
   }
 };
+
+

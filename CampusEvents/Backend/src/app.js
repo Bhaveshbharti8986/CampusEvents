@@ -9,7 +9,7 @@ import cors from 'cors';
  const app=express();
  app.use(cors({
     origin: [
-    'https://frontend-virid-ten-25.vercel.app/',  // Vercel frontend request
+    'https://frontend-virid-ten-25.vercel.app',  // Vercel frontend request
     'http://localhost:5173',                   // Local host
     'https://campusevents-y32d.onrender.com'   // render as frontend request
   ],

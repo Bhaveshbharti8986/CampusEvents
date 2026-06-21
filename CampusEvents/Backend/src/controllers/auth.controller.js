@@ -430,7 +430,7 @@ export async function verifyResetOtp(req, res) {
   res.cookie("resetToken", resetToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite:process.env.NODE_ENV==="production" ? "none" : "lax",
     maxAge: 10 * 60 * 1000,
   });
 
@@ -442,7 +442,10 @@ export async function verifyResetOtp(req, res) {
 export async function resetPassword(req, res) {
   const { newPassword, confirmPassword } = req.body;
   const resetToken = req.cookies.resetToken;
-
+if(!resetToken){
+  return res.status(401).json({ message: "No reset token found. Please request a new link." });
+}
+  
   if (newPassword !== confirmPassword) {
     return res.status(400).json({
       message: "New password and confirm password do not match",

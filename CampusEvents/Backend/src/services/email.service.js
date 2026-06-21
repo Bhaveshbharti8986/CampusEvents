@@ -2,8 +2,11 @@ import nodemailer from "nodemailer";
 import config from "../config/config.js";
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
-  family: 4,
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // Must be false for port 587
+  requireTLS: true,
+  family: 4,     // Forces IPv4 to avoid ENETUNREACH
   auth: {
     type: "OAuth2",
     user: config.GOOGLE_CLIENT,
@@ -12,7 +15,6 @@ const transporter = nodemailer.createTransport({
     refreshToken: config.GOOGLE_REFRESH_TOKEN,
   },
 });
-
 //verify credentials configration and eror
 transporter.verify(function (error, success) {
   if (error) {

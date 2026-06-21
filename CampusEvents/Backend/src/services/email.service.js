@@ -1,48 +1,24 @@
-import nodemailer from "nodemailer";
+import { Resend } from 'resend';
 import config from "../config/config.js";
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false, // Must be false for port 587
-  requireTLS: true,
-  family: 4,     // Forces IPv4 to avoid ENETUNREACH
-  auth: {
-    type: "OAuth2",
-    user: config.GOOGLE_CLIENT,
-    clientId: config.GOOGLE_CLIENT_ID,
-    clientSecret: config.GOOGLE_CLIENT_SECRET,
-    refreshToken: config.GOOGLE_REFRESH_TOKEN,
-  },
-});
-//verify credentials configration and eror
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Server is ready to take our messages");
-  }
-});
+// Initialize Resend with your API Key from your config
+const resend = new Resend(config.RESEND_API_KEY);
 
-//function to send email
 export const sendEmail = async (to, subject, text, html) => {
   try {
-    const info = await transporter.sendMail({
-      from: config.GOOGLE_CLIENT,
-      to: to,
+    const data = await resend.emails.send({
+      // Use a verified domain or "onboarding@resend.dev" for testing
+      from: 'onboarding@resend.dev', 
+      to: [to],
       subject: subject,
       text: text,
       html: html,
     });
-    if (info.rejected.length > 0) {
-      console.error("Recipients rejected by server:", info.rejected);
-      throw new Error("Recipient address rejected by Gmail");
-    }
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    return { success: true, messageId: info.messageId };
+
+    console.log("Message sent successfully:", data.id);
+    return { success: true, messageId: data.id };
   } catch (error) {
-    console.log("error in sending email", error);
+    console.error("Error sending email with Resend:", error);
     throw error;
   }
 };

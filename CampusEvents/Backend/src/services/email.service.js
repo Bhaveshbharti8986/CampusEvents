@@ -8,7 +8,7 @@ export const sendEmail = async (to, subject, text, html) => {
   try {
     const data = await resend.emails.send({
       // Use a verified domain or "onboarding@resend.dev" for testing
-      from: 'onboarding@resend.dev', 
+      from: 'no-reply@email.newevents.store', 
       to: [to],
       subject: subject,
       text: text,
